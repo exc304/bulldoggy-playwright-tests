@@ -1,2 +1,4 @@
-# bulldoggy-playwright-tests
-🐶 Playwright automation tests for Bulldoggy – a FastAPI &amp; HTMX powered reminders app
+# Bulldoggy Playwright Tests 🐶🎭
+
+## 📌 Setup Instructions
+1. Clone the repository:
