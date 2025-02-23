@@ -6,7 +6,7 @@ This repository contains an end-to-end test suite for **Bulldoggy**, a FastAPI a
 ## 🚀 Getting Started
 ### **1️⃣ Clone the Repository**
 ```sh
-git clone <your-repo-url>
+git clone <bulldoggy-playwright-tests>
 cd bulldoggy-playwright-tests
 ```
 
