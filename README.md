@@ -28,7 +28,7 @@ The app should now be accessible at **http://127.0.0.1:8000**.
 Navigate back to the test project and execute the tests:
 ```sh
 cd ../bulldoggy-playwright-tests
-npx playwright test --parallel
+npx playwright test
 ```
 
 ## ✅ Automated Test Coverage

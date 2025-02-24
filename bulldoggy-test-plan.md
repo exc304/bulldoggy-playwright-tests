@@ -27,7 +27,7 @@ Bulldoggy is built to be a seamless, intuitive reminders app, and our testing st
 
 ## 🔍 **Test Approach**
 ### 1️⃣ **Functional Testing**
-✅ User authentication (Login, Logout, Password Reset).  
+✅ User authentication (Login and Logout.  
 ✅ Reminder List CRUD operations.  
 ✅ Reminder Item CRUD operations.  
 ✅ UI behavior for completed reminders.  
@@ -77,7 +77,7 @@ Bulldoggy is built to be a seamless, intuitive reminders app, and our testing st
 
 ## 📌 **Test Environment & Setup**
 ### **Local Setup**
-- **Run Bulldoggy app locally:**
+**Run Bulldoggy app locally:**
   ```sh
   uvicorn app.main:app --reload
   ```
@@ -106,6 +106,8 @@ This strategy ensures Bulldoggy is tested **thoroughly across UI, API, and acces
 ---
 
 ### 🧐 **Erin is Curious About**
+- **TestIds:** Looked through demo-todo-app.spec.ts and noticed there's use of getByTestId, for example. Would love to implement TestIds as early as possible. Tell me more about how Cycle Labs uses TestIds, please.
+- **User Password & Account Management:** Can users Reset their password? What is the current process for password reset? Can a reset be request on behalf of another user (is there a Super User)? What happens if a user decides to deactive their account; is there a Reactivation flow?
 - **Notifications:** This is a reminders app, afterall. What are the notifications like? Can we change the sounds? Are notifications platform agnostic?
 - **Data Validation & Storage:** Ensuring user data is stored correctly in the cloud and remains consistent across web and mobile. This includes schema validation, data integrity checks, and API data format consistency.
 - **Contract Testing:** Is this a viable approach for Bulldoggy's APIs? If so, when in the development lifecycle should this be introduced?
