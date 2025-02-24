@@ -50,9 +50,10 @@ test('User should be able to create, edit, and delete a reminder list', async ({
   await page.goto('http://127.0.0.1:8000');
   await page.fill('input[name="username"]', 'pythonista'); // Hardcoded for now
   await page.fill('input[name="password"]', 'I<3testing'); // Hardcoded for now
+  await page.click('button:has-text("Login")');
   
   // When: The user creates a new reminder list
-  await page.click('button:has-text("New list")');
+  await page.click('button:has-text("New List")');
   await page.fill('input[name="listName"]', 'Shopping List');
   await page.click('button:has-text("Save")');
   await expect(page.locator('text=Shopping List')).toBeVisible();
