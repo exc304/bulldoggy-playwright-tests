@@ -77,7 +77,7 @@ Bulldoggy is built to be a seamless, intuitive reminders app, and our testing st
 
 ## 📌 **Test Environment & Setup**
 ### **Local Setup**
-- **Run Bulldoggy app locally:**
+**Run Bulldoggy app locally:**
   ```sh
   uvicorn app.main:app --reload
   ```
