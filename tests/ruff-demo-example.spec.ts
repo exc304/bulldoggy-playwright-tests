@@ -53,7 +53,7 @@ test('User should be able to create, edit, and delete a reminder list', async ({
   await page.click('button:has-text("Login")');
   
   // When: The user creates a new list
-  await page.getByText('New List').click);
+  await page.getByText('New List').click();
   await page.fill('input[name="listName"]', 'Shopping List');
   await expect(page.locator('text=Shopping List')).toBeVisible();
   
