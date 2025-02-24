@@ -52,19 +52,19 @@ test('User should be able to create, edit, and delete a reminder list', async ({
   await page.fill('input[name="password"]', 'I<3testing'); // Hardcoded for now
   await page.click('button:has-text("Login")');
   
-  // When: The user creates a new reminder list
-  await page.click('button:has-text("New List")');
+  // When: The user creates a new list
+  await page.getByText('New List').click);
   await page.fill('input[name="listName"]', 'Shopping List');
-  await page.click('button:has-text("Save")');
   await expect(page.locator('text=Shopping List')).toBeVisible();
   
   // And: The user edits the list name
-  await page.click('button:has-text("Edit")');
+  const shoppingListRow = page.locator('text="Shopping List"').locator('..'); // Get its parent row
+  await shoppingListRow.locator('img[src="/static/img/icons/icon-edit.svg"]').click();
   await page.fill('input[name="listName"]', 'JUST PICKLES');
-  await page.click('button:has-text("Save")');
   await expect(page.locator('text=JUST PICKLES')).toBeVisible();
   
   // Then: The user deletes the list
-  await page.click('button:has-text("Delete")');
+  const justPicklesRow = page.locator('text="JUST PICKLES"').locator('..');
+  await justPicklesRow.locator('img[src="/static/img/icons/icon-delete.svg"]').click();
   await expect(page.locator('text=JUST PICKLES')).not.toBeVisible();
 });
