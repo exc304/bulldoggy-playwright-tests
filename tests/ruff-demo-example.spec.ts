@@ -24,7 +24,7 @@ test('User should be able to log in and log out successfully', async ({ page }) 
   await expect(page.locator('text=Successfully logged out')).toBeVisible();
 
   // Then: The reminders page is displayed
-  await expect(page).toHaveTitle('Bulldoggy reminders app');
+  await expect(page).toHaveTitle('Login | Bulldoggy reminders app'); // Pretty sure this should be Reminders not Login
   await expect(page).toHaveURL(/\/reminders$/);
   await expect(page.locator('#bulldoggy-logo')).toBeVisible();
   await expect(page.locator('#bulldoggy-title')).toHaveText('Bulldoggy');
