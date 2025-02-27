@@ -171,10 +171,9 @@ test('Accessibility audit for reminder page', async ({page}) => {
   // Check color contrast issues using Lighthouse or Axe
   // (This part can be executed separately with Lighthouse CLI)
 });
-function login(page: Page, myUser: { username: string; password: string; }) {
-  throw new Error('Function not implemented.');
-}
 
-function createList(page: Page, arg1: string) {
-  throw new Error('Function not implemented.');
+async function login(page: Page, myUser: { username: string; password: string; }) {
+  await page.fill('input[name="username"]', myUser.username);
+  await page.fill('input[name="password"]', myUser.password);
+  await page.click('button:has-text("Login")');
 }
