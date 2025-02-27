@@ -1,14 +1,23 @@
 {
   "name": "bulldoggy-playwright-tests",
   "version": "1.0.0",
-  "description": "",
+  "description": "This repository contains bulldoggy playwrite tests",
   "main": "index.js",
   "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/exc304/bulldoggy-playwright-tests.git"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/exc304/bulldoggy-playwrite-tests/issues"
+  },
+  "homepage": "https://github.com/exc304/bulldoggy-playwrite-tests#readme",
   "devDependencies": {
     "@playwright/test": "^1.50.1",
     "@types/node": "^22.13.5"
+    "typescript": "^5.5.3"
   }
 }
