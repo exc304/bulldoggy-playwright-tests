@@ -28,7 +28,7 @@ test('Pythonista should be able to log in and log out successfully', async ({pag
   await expect(page).toHaveTitle('Login | Bulldoggy reminders app');
 
   // When: Pythonista logs in with valid credentials
-  await login(page, myUser);
+  login(page, myUser);
 
   // Then: The reminders page displays with title card "Reminders for pythonista"
   await expect(page).toHaveTitle('Reminders | Bulldoggy reminders app');
@@ -38,7 +38,7 @@ test('Pythonista should be able to log in and log out successfully', async ({pag
   await expect(page.locator('id=reminders-message')).toHaveText('Reminders for pythonista');
 
   // And: The user can log out
-  await expect(page.getByRole('button', {name: 'Logout'})).click();
+  await page.getByRole('button', {name: 'Logout'}).click();
 
   // Then: Verify logout success
   await expect(page.locator('text=Successfully logged out')).toBeVisible();
@@ -59,11 +59,11 @@ Then it should no longer be visible
 test('User should be able to create, edit, and delete a reminder list', async ({page}) => {
   
   // Given: The user is logged in
-  await login(page, myUser);
+  login(page, myUser);
   
   // When: The user creates a new list
-  await createList(page, `Shopping List`);
-  await expect(page.locator('div.reminders-list-list').getByTest(`Shopping List`)).toBeVisible();
+  createList(page, `Shopping List`);
+  await expect(page.locator('div.reminders-list-list').getByTestId(`Shopping List`)).toBeVisible();
   
   // And: The user edits the list name
   const shoppingListRow = page.locator('text="Shopping List"').locator('..'); // Get its parent row
@@ -89,7 +89,7 @@ And the updates should reflect in the list
 test('User should be able to add, edit, complete, and delete reminder list items', async ({page}) => {
   
   // Given: The user is logged in
-  await login(page, myUser);
+  login(page, myUser);
 
   // Create a new reminder list
   await page.getByText('New list').click();
@@ -129,7 +129,7 @@ And not lists or reminders that I do not
 test('Reminder lists and items should persist after logging out and back in', async ({page}) => {
   
   // Given: The user is logged in
-  await login(page, myUser);
+  login(page, myUser);
 
   // Create a new list
   await page.click('button:has-text("New list")');
@@ -143,7 +143,7 @@ test('Reminder lists and items should persist after logging out and back in', as
 
   // Log out and back in
   await page.click('button:has-text("Logout")');
-  await login(page, myUser);
+  login(page, myUser);
 
   // Validate persistence
   await expect(page.locator('text=Totally NOT Groceries')).toBeVisible();
@@ -158,7 +158,7 @@ Scenario: Check for missing ARIA landmarks, language attributes, tabbing issues,
 test('Accessibility audit for reminder page', async ({page}) => {
   
   // Given: The user is logged in
-  await login(page, myUser);
+  login(page, myUser);
 
   // Check for ARIA attributes
   await expect(page.locator('[role="main"]')).toBeVisible();
@@ -171,3 +171,10 @@ test('Accessibility audit for reminder page', async ({page}) => {
   // Check color contrast issues using Lighthouse or Axe
   // (This part can be executed separately with Lighthouse CLI)
 });
+function login(page: Page, myUser: { username: string; password: string; }) {
+  throw new Error('Function not implemented.');
+}
+
+function createList(page: Page, arg1: string) {
+  throw new Error('Function not implemented.');
+}
