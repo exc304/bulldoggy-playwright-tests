@@ -1,5 +1,14 @@
-import { test, expect } from '@playwright/test';
-// Should use "before each" instead of logging in the log way each time
+import {test, expect, type Locator, type Page} from '@playwright/test';
+
+// no longer hard coded log in for pythonista user
+let myUser = {
+    "username": "pythonista",
+    "password": "I<3testing"
+}
+
+test.beforeEach(async ({page}) => {
+    await page.goto('/');
+});
 
 /*
 Feature: User Authentication
@@ -13,22 +22,23 @@ Then I click the logout button
 Then I am logged out successfully
 */
 
-test('User should be able to log in and log out successfully', async ({ page }) => {
+test('Pythonista should be able to log in and log out successfully', async ({page}) => {
+  
   // Given: The login page is displayed
-  await page.goto('http://127.0.0.1:8000');
   await expect(page).toHaveTitle('Login | Bulldoggy reminders app');
 
-  // When: The user logs in with valid credentials
-  await page.fill('input[name="username"]', 'pythonista'); // Hardcoded for now
-  await page.fill('input[name="password"]', 'I<3testing'); // Hardcoded for now
-  await page.click('button:has-text("Login")');
+  // When: Pythonista logs in with valid credentials
+  await login(page, myUser);
 
   // Then: The reminders page displays with title card "Reminders for pythonista"
-  await expect(page.locator('#bulldoggy-logo')).toBeVisible();
-  await expect(page.locator('#reminders-message')).toHaveText('Reminders for pythonista');
+  await expect(page).toHaveTitle('Reminders | Bulldoggy reminders app');
+  await expect(page).toHaveURL('/reminders');
+  await expect(page.locator('id=bulldoggy-logo')).toBeVisible();
+  await expect(page.locator('id=bulldoggy-title')).toBeVisible();
+  await expect(page.locator('id=reminders-message')).toHaveText('Reminders for pythonista');
 
   // And: The user can log out
-  await page.click('button:has-text("Logout")');
+  await expect(page.getByRole('button', {name: 'Logout'})).click();
 
   // Then: Verify logout success
   await expect(page.locator('text=Successfully logged out')).toBeVisible();
@@ -46,17 +56,14 @@ And I should be able to delete the list
 Then it should no longer be visible
 */
 
-test('User should be able to create, edit, and delete a reminder list', async ({ page }) => {
+test('User should be able to create, edit, and delete a reminder list', async ({page}) => {
+  
   // Given: The user is logged in
-  await page.goto('http://127.0.0.1:8000');
-  await page.fill('input[name="username"]', 'pythonista'); // Hardcoded for now
-  await page.fill('input[name="password"]', 'I<3testing'); // Hardcoded for now
-  await page.click('button:has-text("Login")');
+  await login(page, myUser);
   
   // When: The user creates a new list
-  await page.click('button:has-text("New list")');
-  await page.fill('input[name="reminder_list_name"]', 'Shopping List');
-  await expect(page.locator('text=Shopping List')).toBeVisible();
+  await createList(page, `Shopping List`);
+  await expect(page.locator('div.reminders-list-list').getByTest(`Shopping List`)).toBeVisible();
   
   // And: The user edits the list name
   const shoppingListRow = page.locator('text="Shopping List"').locator('..'); // Get its parent row
@@ -79,11 +86,10 @@ Then I should be able to manipulate the items in the list
 And the updates should reflect in the list
 */
 
-test('User should be able to add, edit, complete, and delete reminder list items', async ({ page }) => {
-  await page.goto('http://127.0.0.1:8000');
-  await page.fill('input[name="username"]', 'testuser');
-  await page.fill('input[name="password"]', 'password123');
-  await page.click('button:has-text("Login")');
+test('User should be able to add, edit, complete, and delete reminder list items', async ({page}) => {
+  
+  // Given: The user is logged in
+  await login(page, myUser);
 
   // Create a new reminder list
   await page.getByText('New list').click();
@@ -120,11 +126,10 @@ Then I can see lists and reminders that I expect to be there
 And not lists or reminders that I do not
 */
 
-test('Reminder lists and items should persist after logging out and back in', async ({ page }) => {
-  await page.goto('http://127.0.0.1:8000');
-  await page.fill('input[name="username"]', 'testuser');
-  await page.fill('input[name="password"]', 'password123');
-  await page.click('button:has-text("Login")');
+test('Reminder lists and items should persist after logging out and back in', async ({page}) => {
+  
+  // Given: The user is logged in
+  await login(page, myUser);
 
   // Create a new list
   await page.click('button:has-text("New list")');
@@ -138,26 +143,22 @@ test('Reminder lists and items should persist after logging out and back in', as
 
   // Log out and back in
   await page.click('button:has-text("Logout")');
-  await page.fill('input[name="username"]', 'testuser');
-  await page.fill('input[name="password"]', 'password123');
-  await page.click('button:has-text("Login")');
+  await login(page, myUser);
 
   // Validate persistence
   await expect(page.locator('text=Totally NOT Groceries')).toBeVisible();
   await expect(page.locator('text=mini resin ducks')).toBeVisible();
 });
 
-
 /*
 Feature: Basic Accessibility Checks
 Scenario: Check for missing ARIA landmarks, language attributes, tabbing issues, and contrast errors
 */
 
-test('Accessibility audit for reminder page', async ({ page }) => {
-  await page.goto('http://127.0.0.1:8000');
-  await page.fill('input[name="username"]', 'testuser');
-  await page.fill('input[name="password"]', 'password123');
-  await page.click('button:has-text("Login")');
+test('Accessibility audit for reminder page', async ({page}) => {
+  
+  // Given: The user is logged in
+  await login(page, myUser);
 
   // Check for ARIA attributes
   await expect(page.locator('[role="main"]')).toBeVisible();
