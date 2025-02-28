@@ -63,18 +63,19 @@ test('User should be able to create, edit, and delete a reminder list', async ({
   
   // When: The user creates a new list
   createList(page, `Shopping List`);
-  await expect(page.locator('div.reminders-list-list').getByTestId(`Shopping List`)).toBeVisible();
+  await expect(page.locator('p', { hasText: 'Shopping List' })).toBeVisible();
   
   // And: The user edits the list name
   const shoppingListRow = page.locator('text="Shopping List"').locator('..'); // Get its parent row
   await shoppingListRow.locator('img[src="/static/img/icons/icon-edit.svg"]').click();
-  await page.fill('input[name="reminder_list_name"]', 'JUST PICKLES');
-  await expect(page.locator('text=JUST PICKLES')).toBeVisible();
-  
+  await page.fill('input[name="new_name"]', 'JUST PICKLES');
+  await page.click('img[src="/static/img/icons/icon-check-circle.svg"]');
+  //await shoppingListRow.locator('img[src="/static/img/icons/icon-check-circle.svg"]').click();
+  await expect(page.locator('p', { hasText: 'JUST PICKLES' })).toBeVisible();  
   // Then: The user deletes the list
   const justPicklesRow = page.locator('text="JUST PICKLES"').locator('..');
   await justPicklesRow.locator('img[src="/static/img/icons/icon-delete.svg"]').click();
-  await expect(page.locator('text=JUST PICKLES')).not.toBeVisible();
+  await expect(page.locator('p', { hasText: 'JUST PICKLES' })).not.toBeVisible();
 });
 
 /*
@@ -179,6 +180,7 @@ async function login(page: Page, myUser: { username: string; password: string; }
 }
 
 async function createList(page: Page, listName: string) {
-  await page.fill('[data-id="new-reminder-row"]', listName);
-  await page.keyboard.press('Enter');
+  await page.click('[data-id="new-reminder-row"]');
+  await page.fill('input[name="reminder_list_name"]', listName);
+  await page.click('img[src="/static/img/icons/icon-check-circle.svg"]');
 }
