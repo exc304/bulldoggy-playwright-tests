@@ -177,3 +177,8 @@ async function login(page: Page, myUser: { username: string; password: string; }
   await page.fill('input[name="password"]', myUser.password);
   await page.click('button:has-text("Login")');
 }
+
+async function createList(page: Page, listName: string) {
+  await page.fill('[data-id="new-reminder-row"]', listName);
+  await page.keyboard.press('Enter');
+}
