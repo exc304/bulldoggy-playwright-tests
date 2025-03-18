@@ -6,7 +6,7 @@ Bulldoggy is a cross-platform reminders app built with **FastAPI and HTMX**. Thi
 ---
 
 ## 🎯 **Objectives**
-Bulldoggy is built to be a seamless, intuitive reminders app, and our testing strategy ensures it stays that way. From creating and modifying reminder lists to marking them complete, our goal is to guarantee every interaction feels effortless. Data persistence across web and mobile is key—reminders should always be where users expect them, no matter the device. With public API access, reliability and security are paramount, ensuring smooth integrations and safe user experiences. We’re taking Bulldoggy through its paces across multiple browsers and platforms, ensuring a consistent and accessible experience for all users.
+Bulldoggy is built to be a seamless, intuitive reminders app, and our testing strategy ensures it stays that way. From creating and modifying reminder lists to marking them complete, our goal is to guarantee every interaction feels effortless. Data persistence across web and mobile is key. Reminders should always be where users expect them, no matter the device. With public API access, reliability and security are paramount, ensuring smooth integrations and safe user experiences. We’re taking Bulldoggy through its paces across multiple browsers and platforms, ensuring a consistent and accessible experience for all users.
 
 ---
 
@@ -27,7 +27,7 @@ Bulldoggy is built to be a seamless, intuitive reminders app, and our testing st
 
 ## 🔍 **Test Approach**
 ### 1️⃣ **Functional Testing**
-✅ User authentication (Login and Logout.  
+✅ User authentication (Login and Logout).  
 ✅ Reminder List CRUD operations.  
 ✅ Reminder Item CRUD operations.  
 ✅ UI behavior for completed reminders.  
